@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/notion-cli/jekyll-theme
-  revision: 1855ab1a5178608ade9ddd55b8665b6e1f3c5c7e
+  revision: 1e764bde88218f8cb961d266c2e8362cbef822cf
   specs:
     notion-jekyll-theme (0.1.0)
       jekyll (~> 3.8)
@@ -8,7 +8,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.5.2)
+    addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     colorator (1.1.0)
     concurrent-ruby (1.1.4)
