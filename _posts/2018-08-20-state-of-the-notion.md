@@ -3,8 +3,9 @@ layout: post
 title:  "State of the Notion"
 date:   2018-08-20 10:32:05 -0700
 categories: update
+author: Dave Herman
 ---
-_Notion is a **Node.js toolchain manager**, making sure you always get the right version of Node, package managers like npm and Yarn, and CLI tools installed from npm. Best of all, Notion makes tool requirements **declarative and reproducible** by using_ `package.json` _to remember and launch the right versions of a project’s required tools, so developers and users always see their projects build and run in a consistent environment._
+_Notion is a **JavaScript toolchain manager**, making sure you always get the right version of Node, package managers like npm and Yarn, and JS command-line tools. Best of all, Notion makes tool requirements **declarative and reproducible** by using_ `package.json` _to remember and launch the right versions of a project’s required tools, so developers and users always see their projects build and run in a consistent environment._
 
 # Minimum viable status update
 
@@ -24,13 +25,13 @@ So here’s where we are so far: we’ve reached a first milestone that hits eno
 
 We’re still a ways off from a full release, but this first release demonstrates a few of the things we think are going to make Notion powerful: in particular, a new approach to collaborating on Node projects.
 
-# Project toolchains
+# Projects
 
-The goal of Notion is to enable collaborators on a project to always work with the same version of Node. You can select the Node version for a project with `notion use`:
+The goal of Notion is to enable collaborators on a project to always work with the same version of Node. You can select the Node version for a project with `notion pin`:
 
 ```shell
 $ cd ~/projects/my-app
-$ notion use node 10.7
+$ notion pin node 10.7
 ```
 
 This command resolves the Node version, fetches the installer, and pins your project to that version by adding a `"toolchain"` key to your `package.json`:
@@ -74,18 +75,12 @@ $ node --version
 v10.7.0
 ```
 
-There will eventually be a similar workflow for installing package binaries, and automatic creation of shims in your `PATH` for using them. For now, you need to create these shims yourself with the stopgap command `notion shim`. For example, we can create a shim for the `cowsay` command:
+There will eventually be a similar workflow for installing package binaries, and automatic creation of shims in your `PATH` for using them.
 
-```shell
-$ notion shim cowsay
-```
+# Where can we go from here?
 
-Now if you’re in a project that uses `cowsay` as a dependency, running `cowsay` will automatically use the specified local version, and otherwise it will use the global version. (This command may change or get removed once we start automating the creation of shims.)
+Here's a few of the topics we plan to tackle eventually, in no particular order:
 
-What’s even cooler about Notion shims, in addition to their convenience, is that they **keep your project scripts safely isolated from user tools.** Instead of installing global packages in a shared Node installation, which can make your project builds sensitive to the state of your local machine, Notion follows the best practice of running your project scripts in a Node environment *with no global packages installed*. This gives you the best of both worlds: the convenience of installing tools for personal use that happen to be distributed via Node, but with all the best practices of project maintenance.
-
-# What’s next?
-- **Stateless installation:** This is going to be one of the most important next milestones. At the moment, Notion’s installations of Node are shared and can drift over time (e.g. by installing global packages). What we plan to do next is to use [libgit2](https://crates.io/crates/git2) to treat a Node installation like an immutable “image,” making it efficient for every action you do at the command-line through Notion to run as if in its own, freshly-installed Node environment.
 - **Windows support, and other shells:** We will ensure that Notion 1.0 ships on Windows as a fully supported platform! We also intend to support popular Unix shells like zsh, fish, and any others that contributors might want to implement.
 - **Plugins:** We plan to make Notion extensible, so e.g. your company’s IT department can configure Notion to provision tools from a private intranet. We’re also working on enabling companies to collect metrics about usage patterns, outages, etc. (These are all disabled by default for privacy.)
 - **CI and offline support:** Continuous integration environments bring some extra requirements, like the ability to choose from a matrix of toolchain options, and the ability to split apart the fetching of remote assets and using those assets (often in a network-disabled sandbox) into separate phases.
