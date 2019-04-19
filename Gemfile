@@ -10,7 +10,7 @@ source "https://rubygems.org"
 # Happy Jekylling!
 gem "jekyll", "~> 3.8.3"
 
-gem "notion-jekyll-theme", :git => "https://github.com/notion-cli/jekyll-theme"
+gem "jetson-jekyll-theme", :git => "https://github.com/jetson-cli/jekyll-theme"
 
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.
